@@ -1,0 +1,50 @@
+html {
+  background: var(--bg);
+  color: var(--accent);
+  margin: 0;
+  padding: 0;
+}
+
+* {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+#icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    width: 15rem;
+}
+
+#header {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto auto 1fr auto;
+    height: fit-content;
+    padding: 4px;
+    align-items: end;
+}
+
+#caption {
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    gap: 16px;
+    height: 100%;
+    align-items: center;
+}
+
+.action-buttons > * {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    user-select: none;
+    cursor: pointer;
+}
