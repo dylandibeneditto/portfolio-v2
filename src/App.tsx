@@ -15,8 +15,9 @@ function App() {
                 <div id="caption">DESIGNER & FRONT-END DEVELOPER</div>
                 <div id="spacer"></div>
                 <div className="action-buttons">
-                    <a href="http://" target="_blank" rel="noopener noreferrer">PROJECTS</a>
-                    <a href="http://" target="_blank" rel="noopener noreferrer">CONTACT ME</a>
+                    <a href="http://" target="_blank" rel="noopener noreferrer"><div>LINKS</div></a>
+                    <a href="http://" target="_blank" rel="noopener noreferrer"><div>PROJECTS</div></a>
+                    <a href="http://" target="_blank" rel="noopener noreferrer"><div>CONTACT ME</div></a>
                 </div>
             </div>
         </>
