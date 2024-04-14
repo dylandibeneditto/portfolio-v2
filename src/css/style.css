@@ -36,7 +36,7 @@ html {
     display: flex;
     flex-direction: row;
     width: max-content;
-    gap: 16px;
+    gap: 24px;
     height: 100%;
     align-items: center;
 }
