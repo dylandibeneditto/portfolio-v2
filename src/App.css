@@ -46,13 +46,17 @@ html {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
+}
+
+.highlight-btn {
     user-select: none;
     cursor: pointer;
     width: fit-content;
     overflow: hidden;
+    height: 18.5px;
 }
 
-.action-buttons > * > ::after {
+.highlight-btn > ::after {
     content: "";
     position: relative;
     top: 0;
@@ -66,7 +70,7 @@ html {
     backdrop-filter: invert(1);
 }
 
-.action-buttons > *:hover > ::after {
+.highlight-btn:hover > ::after {
     transform: translate(0%, -100%);
 }
 
