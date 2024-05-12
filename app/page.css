@@ -29,6 +29,10 @@
   grid-template-rows: 1fr 1fr;
 }
 
+.grid-col-1 > .grid-col-col {
+  grid-template-rows: 1fr auto;
+}
+
 .grid-row {
   display: grid;
   grid-auto-flow: column;
@@ -58,4 +62,11 @@
 
 .header {
   height: 2rem;
+}
+
+.studio-icon > * {
+  width: 100%;
+  height: fit-content;
+  padding: 8px;
+  fill: var(--text);
 }
