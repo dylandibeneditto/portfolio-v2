@@ -1,6 +1,5 @@
 .layout {
     padding: 8px;
-    height: 100%;
     width: 100%;
     display: grid;
     grid-auto-flow: row;

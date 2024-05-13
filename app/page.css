@@ -1,7 +1,7 @@
 .content {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   width: 100dvw;
   height: 100dvh;
 }

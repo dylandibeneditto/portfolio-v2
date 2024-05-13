@@ -1,0 +1,15 @@
+.page-title {
+    font-family: menlo, monospace;
+    font-size: 11px;
+    color: var(--text-sec);
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    background-color: var(--outer)
+}
+
+.page-title > .a {
+    color: var(--text);
+    font-weight: 500;
+}
