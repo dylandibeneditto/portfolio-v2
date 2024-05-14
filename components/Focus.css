@@ -1,0 +1,18 @@
+.focus-content {
+    padding: 4px 8px;
+    display: flex;
+    gap: 8px;
+    background: var(--bg);
+    box-shadow: inset 0px 1px 0px 0px var(--inner);
+    width: fit-content;
+    height: fit-content;
+    border-radius: 1rem;
+    align-items: center;
+    font-size: 12px;
+}
+
+.focus-orb {
+    width: 7.5px;
+    height: 7.5px;
+    border-radius: 10rem;
+}

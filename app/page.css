@@ -64,6 +64,15 @@
   height: 2rem;
 }
 
+.focus-items {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding: 8px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
 .studio-icon > * {
   width: 100%;
   height: fit-content;
