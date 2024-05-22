@@ -57,7 +57,12 @@ export default function Home() {
 
                 <div className="grid-rcol">
 
-                  <div className="tile"></div>
+                  <div className="tile">
+                    <div className="contact">
+                      <span className="material-symbols-outlined">mail</span>
+                      <div className="contact-title">contact me</div>
+                    </div>
+                  </div>
 
                   <div className="tile"></div>
 
@@ -96,8 +101,6 @@ export default function Home() {
           </div>
 
         </div>
-
-        <div className="footer">foot</div>
 
       </div>
     </>

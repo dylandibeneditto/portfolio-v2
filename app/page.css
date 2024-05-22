@@ -79,3 +79,23 @@
   padding: 8px;
   fill: var(--text);
 }
+
+.tile:has(.contact) {
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+}
+
+.contact {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact > span {
+  font-size: 36px;
+}
