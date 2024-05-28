@@ -7,6 +7,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 import "./page.css";
 import Details from "@/components/Details";
+import Clock from "@/components/Clock";
 import BoxTitle from "@/components/BoxTitle";
 
 export default function Home() {
@@ -16,13 +17,9 @@ export default function Home() {
         <div className="grid-main">
           <div className="grid-col-1">
             <div className="grid-col-col">
-              <div className="grid-row">
-                <div className="tile">
-                  <BoxTitle title="details" />
-                  <Details></Details>
-                </div>
-
-                <div className="tile"></div>
+              <div className="tile">
+                <BoxTitle title="details" />
+                <Details></Details>
               </div>
 
               <div className="tile studio-icon">
@@ -94,7 +91,9 @@ export default function Home() {
           </div>
 
           <div className="grid-col-3">
-            <div className="tile"></div>
+            <div className="tile">
+              <Clock />
+            </div>
 
             <div className="tile">
               <BoxTitle title="case-studies" />

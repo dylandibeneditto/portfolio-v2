@@ -40,7 +40,7 @@
 .grid-row {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto;
 }
 
 .grid-col-2 {
@@ -85,6 +85,10 @@
   fill: var(--text);
 }
 
+.grid-row *:contains(.grid-rcol) {
+  grid-template-columns: 1fr auto;
+}
+
 .grid-rcol > * {
   display: flex;
   cursor: pointer;
@@ -105,12 +109,8 @@
 }
 
 .grid-rcol > * > * > svg {
-  height: 32px;
-  width: 32px;
-}
-
-.grid-rcol > * > * > span {
-  font-size: 32px;
+  height: 20px;
+  width: 20px;
 }
 
 .grid-rcol > * > * > div {
