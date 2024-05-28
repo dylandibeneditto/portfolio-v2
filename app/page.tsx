@@ -1,6 +1,9 @@
-import Favicon from "@/components/favicon"
+import Favicon from "@/components/favicon";
 import AboutMe from "@/components/AboutMe";
 import Focus from "@/components/Focus";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 import "./page.css";
 import Details from "@/components/Details";
@@ -10,64 +13,66 @@ export default function Home() {
   return (
     <>
       <div className="content">
-
         <div className="grid-main">
-
           <div className="grid-col-1">
-
             <div className="grid-col-col">
-
               <div className="grid-row">
-
                 <div className="tile">
                   <BoxTitle title="details" />
                   <Details></Details>
                 </div>
 
                 <div className="tile"></div>
-
               </div>
 
               <div className="tile studio-icon">
                 <Favicon />
               </div>
-
             </div>
 
             <div className="tile">
               <BoxTitle title="about me" />
               <AboutMe />
             </div>
-
           </div>
 
           <div className="grid-col-2">
-
             <div className="tile">
               <BoxTitle title="skills" />
             </div>
 
             <div className="grid-col-col">
-
               <div className="grid-row">
-
                 <div className="tile">
                   <BoxTitle title="experience" />
                 </div>
 
                 <div className="grid-rcol">
-
                   <div className="tile">
-                    <div className="contact">
-                      <span className="material-symbols-outlined">mail</span>
-                      <div className="contact-title">contact me</div>
-                    </div>
+                    <a className="contact" href="mailto:dibenedittod@gmail.com">
+                      <FontAwesomeIcon icon={faEnvelope} />
+                      <div className="contact-title">Contact me</div>
+                    </a>
                   </div>
 
-                  <div className="tile"></div>
+                  <div className="tile">
+                    <a
+                      href="https://github.com/dylandibeneditto"
+                      target="_blank"
+                      className="github"
+                    >
+                      <FontAwesomeIcon icon={faGithub} />
+                      <div>GitHub</div>
+                    </a>
+                  </div>
 
+                  <div className="tile">
+                    <a href="" target="_blank" className="twitter">
+                      <FontAwesomeIcon icon={faXTwitter} />
+                      <div>Twitter</div>
+                    </a>
+                  </div>
                 </div>
-
               </div>
 
               <div className="tile">
@@ -85,23 +90,17 @@ export default function Home() {
                   <Focus title="backend systems development" color="orange" />
                 </div>
               </div>
-
             </div>
-
           </div>
 
           <div className="grid-col-3">
-
             <div className="tile"></div>
 
             <div className="tile">
               <BoxTitle title="case-studies" />
             </div>
-
           </div>
-
         </div>
-
       </div>
     </>
   );
