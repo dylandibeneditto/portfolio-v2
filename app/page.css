@@ -24,7 +24,7 @@
 .grid-col-1 {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 2fr 2fr;
+  grid-template-rows: auto 1fr;
 }
 
 .grid-col-col {
