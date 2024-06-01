@@ -1,0 +1,15 @@
+.info-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    padding: 10px;
+    font-family: Menlo, monospace;
+    font-size: 11px;
+}
+
+.time > :not(.timezone) {
+    font-weight: 600;
+}
+
+.timezone {
+    color: var(--text-sec);
+}

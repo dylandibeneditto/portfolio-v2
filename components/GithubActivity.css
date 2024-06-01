@@ -1,0 +1,7 @@
+.secondary {
+    color: var(--text-sec);
+}
+
+* {
+    font-size: 11px;
+}

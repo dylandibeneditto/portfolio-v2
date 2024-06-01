@@ -49,6 +49,10 @@
   grid-template-rows: 2fr 2fr;
 }
 
+.grid-col-2 > .grid-col-col {
+  grid-template-rows: auto 1fr;
+}
+
 .grid-rcol {
   display: grid;
   grid-auto-flow: row;
@@ -58,7 +62,7 @@
 .grid-col-3 {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 1fr 3fr;
+  grid-template-rows: auto 1fr;
 }
 
 .footer {
@@ -93,7 +97,7 @@
   display: flex;
   cursor: pointer;
   user-select: none;
-  transition: .2s ease;
+  transition: 0.2s ease;
 }
 
 .grid-rcol > *:hover {
