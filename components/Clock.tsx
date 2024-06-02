@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import "./Clock.css";
-import GithubActivity from "./GithubActivity.tsx";
+import GithubActivity from "./GithubActivity";
 
 export default function Clock() {
   const [time, setTime] = useState(
