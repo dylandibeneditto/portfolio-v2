@@ -1,31 +1,27 @@
-// components/GitHubActivity.js
 import { useState, useEffect } from "react";
 import "./GithubActivity.css";
 
 function formatTimeDifference(dateString: string): string {
-    // Convert the provided date string to a Date object
-    const providedDate: Date = new Date(dateString);
+  const providedDate = new Date(dateString);
+  const currentTime = new Date();
+  const timeDifference = Math.abs(
+    currentTime.getTime() - providedDate.getTime()
+  );
 
-    // Calculate the time difference between the provided date and the current time
-    const currentTime: Date = new Date();
-    const timeDifference: number = Math.abs(currentTime.getTime() - providedDate.getTime());
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
 
-    // Convert milliseconds to seconds, minutes, hours, and days
-    const seconds: number = Math.floor(timeDifference / 1000);
-    const minutes: number = Math.floor(seconds / 60);
-    const hours: number = Math.floor(minutes / 60);
-    const days: number = Math.floor(hours / 24);
-
-    // Format the result based on the time difference
-    if (days > 0) {
-        return `${days} day${days !== 1 ? 's' : ''} ago`;
-    } else if (hours > 0) {
-        return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    } else if (minutes > 0) {
-        return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    } else {
-        return `Just now`;
-    }
+  if (days > 0) {
+    return `${days} day${days !== 1 ? "s" : ""} ago`;
+  } else if (hours > 0) {
+    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+  } else {
+    return `Just now`;
+  }
 }
 
 const GitHubActivity = ({ username }: { username: string }) => {
@@ -38,7 +34,6 @@ const GitHubActivity = ({ username }: { username: string }) => {
           `https://api.github.com/users/${username}/events`
         );
         const data = await response.json();
-        console.log(data);
         setActivity(data);
       } catch (error) {
         console.error("Error fetching GitHub activity:", error);
@@ -47,11 +42,29 @@ const GitHubActivity = ({ username }: { username: string }) => {
 
     fetchData();
   }, [username]);
-  console.log(activity);
-  return activity.length == 0 ? (
-    <span className="secondary">loading...</span>
-  ) : (
-    <div className="last-push"><span className="secondary">Last seen</span> {formatTimeDifference(activity[0].created_at)}</div>
+
+  return (
+    <>
+      {activity.length === 0 ? (
+        <span className="secondary">Loading...</span>
+      ) : (
+        <div className="last-push">
+          <span className="secondary">Last Seen</span>{" "}
+          {formatTimeDifference(activity[0].created_at)}{" "}
+          <div className="event-info">
+            <span>({activity[0].type.slice(0, -5)}</span>
+            <span className="secondary"> in </span>
+            <a
+              href={`https://github.com/${activity[0].repo.name}`}
+              target="_blank"
+            >
+              {activity[0].repo.name.split("/")[1]}
+            </a>
+            <span>)</span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

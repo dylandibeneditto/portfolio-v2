@@ -2,6 +2,20 @@
     color: var(--text-sec);
 }
 
-.info-bar > * {
+.last-push {
     font-size: 11px;
+}
+
+.event-info > a {
+    text-decoration: underline;
+    color: var(--text-sec);
+}
+
+.event-info > * {
+    font-size: 10px;
+    color: var(--text-sec)
+}
+
+.event-info > .secondary {
+    color: var(--text-ter);
 }
