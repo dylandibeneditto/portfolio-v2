@@ -9,6 +9,7 @@ import "./page.css";
 import Details from "@/components/Details";
 import Clock from "@/components/Clock";
 import BoxTitle from "@/components/BoxTitle";
+import ParticleCanvas from "@/components/ParticleCanvas";
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
           <div className="grid-col-2">
             <div className="tile">
               <BoxTitle title="skills" />
+              <ParticleCanvas />
             </div>
 
             <div className="grid-col-col">
@@ -48,7 +50,7 @@ export default function Home() {
                   <div className="tile">
                     <a className="contact" href="mailto:dibenedittod@gmail.com">
                       <FontAwesomeIcon icon={faEnvelope} />
-                      <div className="contact-title">Contact me</div>
+                      <div className="contact-title">Email</div>
                     </a>
                   </div>
 
