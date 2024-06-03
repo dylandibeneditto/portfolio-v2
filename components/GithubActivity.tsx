@@ -49,18 +49,16 @@ const GitHubActivity = ({ username }: { username: string }) => {
         <span className="secondary">Loading...</span>
       ) : (
         <div className="last-push">
-          <span className="secondary">Last Seen</span>{" "}
-          {formatTimeDifference(activity[0].created_at)}{" "}
+          <span className="secondary">Last Seen: </span>
+          {formatTimeDifference(activity[0].created_at)}
           <div className="event-info">
-            <span>({activity[0].type.slice(0, -5)}</span>
-            <span className="secondary"> in </span>
+            <span>{activity[0].type.slice(0, -5).toLowerCase()}: </span>
             <a
               href={`https://github.com/${activity[0].repo.name}`}
               target="_blank"
             >
               {activity[0].repo.name.split("/")[1]}
             </a>
-            <span>)</span>
           </div>
         </div>
       )}
