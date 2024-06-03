@@ -12,6 +12,8 @@ interface Particle {
   originalSize: number;
   hovered: boolean;
   opacity: number;
+  xOffset: number;
+  yOffset: number
 }
 
 export default function ParticleCanvas() {
@@ -35,6 +37,8 @@ export default function ParticleCanvas() {
         originalSize: size,
         hovered: false,
         opacity: 1,
+        xOffset: 1,
+        yOffset: 1,
       });
     }
     particlesRef.current = particlesArray;
@@ -130,20 +134,44 @@ export default function ParticleCanvas() {
         context!.fill();
         context!.closePath();
 
-        // Adjust opacity based on hover state
         const hoverOpacity = particle.hovered || !anyHoveredRef.current ? 1 : 0.2;
-        const opacitySpeed = 0.05; // Adjust as needed
-        particle.opacity = particle.opacity || 1; // Initialize opacity if not present
+        const opacitySpeed = 0.1;
+        particle.opacity = particle.opacity || 1;
         particle.opacity += (hoverOpacity - particle.opacity) * opacitySpeed;
 
         // Draw label with adjusted opacity
+        let targetX = particle.x;
+        if (particle.x > canvas!.width - (25 * window.devicePixelRatio)) {
+          targetX = canvas!.width - particle.size;
+        } else if (particle.x < (25 * window.devicePixelRatio)) {
+          targetX = particle.size;
+        }
+    
+        // Calculate target y position
+        let targetY = particle.y;
+        const yOffset = particle.y > canvas!.height - (25 * window.devicePixelRatio) ? -1 : 1;
+        const yLabelOffset = (particle.size + (10 * window.devicePixelRatio)) * yOffset;
+        targetY += yLabelOffset;
+    
+        const xOffsetSpeed = 0.05; // Adjust as needed
+        particle.xOffset = particle.xOffset || particle.x;
+        particle.xOffset += (targetX - particle.xOffset) * xOffsetSpeed;
+    
+        const yOffsetSpeed = 0.05; // Adjust as needed
+        particle.yOffset = particle.yOffset || particle.y + yLabelOffset;
+        particle.yOffset += (targetY - particle.yOffset) * yOffsetSpeed;
+    
+        //
+        // TODO: refactor so animation is applied to the relative offset of the particle x, not the absolute position of the label
+        //
         context!.font = `${12 * window.devicePixelRatio}px '__Inter_aaf875'`;
+        context!.textAlign = "center";
         context!.globalAlpha = particle.opacity;
         context!.fillStyle = "white";
         context!.fillText(
           particle.label,
-          particle.x + particle.size,
-          particle.y - particle.size
+          particle.xOffset,
+          particle.yOffset
         );
         context!.globalAlpha = 1; // Reset global alpha
 
