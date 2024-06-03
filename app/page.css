@@ -101,7 +101,7 @@
 }
 
 .grid-rcol > *:hover {
-  filter: brightness(1.1);
+  filter: brightness(var(--hover-brightness));
 }
 
 .grid-rcol > * > * {

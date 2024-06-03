@@ -13,7 +13,7 @@
 }
 
 .event-info:hover {
-    filter: brightness(2);
+    filter: brightness(var(--hover-brightness));
 }
 
 .event-info > a {

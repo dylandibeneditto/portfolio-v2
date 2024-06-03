@@ -2,7 +2,7 @@
     padding: 4px 8px;
     display: flex;
     gap: 8px;
-    background: var(--bg);
+    background: var(--outer);
     box-shadow: inset 0px 1px 0px 0px var(--inner);
     width: fit-content;
     height: fit-content;
