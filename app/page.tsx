@@ -24,7 +24,7 @@ export default function Home() {
               </div>
 
               <div className="tile studio-icon">
-                <Favicon />
+                {/*<Favicon />*/}
               </div>
             </div>
 

@@ -5,15 +5,15 @@ export default function Details() {
         <div className="layout">
             <div className="answer">
                 <div className="q">name</div>
-                <div className="a">Dylan DiBeneditto</div>
+                <div className="a">...</div>
             </div>
             <div className="answer">
                 <div className="q">based in</div>
-                <div className="a">USA</div>
+                <div className="a">...</div>
             </div>
             <div className="answer">
                 <div className="q">age</div>
-                <div className="a">16y</div>
+                <div className="a">...</div>
             </div>
         </div>
     )

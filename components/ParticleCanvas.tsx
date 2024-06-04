@@ -13,7 +13,7 @@ interface Particle {
   hovered: boolean;
   opacity: number;
   xOffset: number;
-  yOffset: number
+  yOffset: number;
 }
 
 export default function ParticleCanvas() {
@@ -23,17 +23,34 @@ export default function ParticleCanvas() {
   const anyHoveredRef = useRef<boolean>(false);
 
   const initParticles = (canvasWidth: number, canvasHeight: number) => {
+    const titles: string[] = [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "TypeScript",
+      "C++",
+      "Java",
+      "Rust",
+      "C#",
+      "Swift",
+      "Python",
+      "Ruby",
+      "Node.js",
+      "React.js",
+      "Next.js",
+      "GraphQL",
+    ];
     const particlesArray: Particle[] = [];
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < titles.length; i++) {
       const size = 3 * window.devicePixelRatio;
       particlesArray.push({
-        x: Math.random() * canvasWidth,
-        y: Math.random() * canvasHeight,
+        x: Math.random() * canvasWidth - 20 + 10,
+        y: Math.random() * canvasHeight - 20 + 10,
         size,
         targetSize: size,
-        label: `Node ${i}`,
-        dx: (Math.random() - 0.5) * 0.02,
-        dy: (Math.random() - 0.5) * 0.02,
+        label: titles[i],
+        dx: (Math.random() - 0.5) * 0.002,
+        dy: (Math.random() - 0.5) * 0.002,
         originalSize: size,
         hovered: false,
         opacity: 1,
@@ -77,7 +94,7 @@ export default function ParticleCanvas() {
           const dxCenter = centerX - particle.x;
           const dyCenter = centerY - particle.y;
           const distanceToCenter = Math.hypot(dxCenter, dyCenter);
-          const centerForce = distanceToCenter / 30000; // Attraction force to center
+          const centerForce = distanceToCenter / 40000; // Attraction force to center
           const centerAngle = Math.atan2(dyCenter, dxCenter);
 
           particle.dx += Math.cos(centerAngle) * centerForce;
@@ -88,7 +105,7 @@ export default function ParticleCanvas() {
               const dx = otherParticle.x - particle.x;
               const dy = otherParticle.y - particle.y;
               const distance = Math.hypot(dx, dy);
-              const repulsionForce = 1 / distance; // Repulsion force
+              const repulsionForce = (1 / (distance / .5)) * 0.75; // Repulsion force
               const angle = Math.atan2(dy, dx);
 
               particle.dx += Math.cos(angle) * (0 - repulsionForce);
@@ -128,52 +145,52 @@ export default function ParticleCanvas() {
         }
 
         // Draw particle
+        context!.globalAlpha = .75; // Reset global alpha
         context!.beginPath();
         context!.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         context!.fillStyle = "white";
         context!.fill();
         context!.closePath();
 
-        const hoverOpacity = particle.hovered || !anyHoveredRef.current ? 1 : 0.2;
+        const hoverOpacity =
+          particle.hovered || !anyHoveredRef.current ? 1 : 0.2;
         const opacitySpeed = 0.1;
         particle.opacity = particle.opacity || 1;
         particle.opacity += (hoverOpacity - particle.opacity) * opacitySpeed;
 
         // Draw label with adjusted opacity
         let targetX = particle.x;
-        if (particle.x > canvas!.width - (25 * window.devicePixelRatio)) {
+        if (particle.x > canvas!.width - 25 * window.devicePixelRatio) {
           targetX = canvas!.width - particle.size;
-        } else if (particle.x < (25 * window.devicePixelRatio)) {
+        } else if (particle.x < 25 * window.devicePixelRatio) {
           targetX = particle.size;
         }
-    
+
         // Calculate target y position
         let targetY = particle.y;
-        const yOffset = particle.y > canvas!.height - (25 * window.devicePixelRatio) ? -1 : 1;
-        const yLabelOffset = (particle.size + (10 * window.devicePixelRatio)) * yOffset;
+        const yOffset =
+          particle.y > canvas!.height - 25 * window.devicePixelRatio ? -1 : 1;
+        const yLabelOffset =
+          (particle.size + 10 * window.devicePixelRatio) * yOffset;
         targetY += yLabelOffset;
-    
+
         const xOffsetSpeed = 0.05; // Adjust as needed
         particle.xOffset = particle.xOffset || particle.x;
         particle.xOffset += (targetX - particle.xOffset) * xOffsetSpeed;
-    
+
         const yOffsetSpeed = 0.05; // Adjust as needed
         particle.yOffset = particle.yOffset || particle.y + yLabelOffset;
         particle.yOffset += (targetY - particle.yOffset) * yOffsetSpeed;
-    
+
         //
         // TODO: refactor so animation is applied to the relative offset of the particle x, not the absolute position of the label
         //
+        context!.globalAlpha = 1; // Reset global alpha
         context!.font = `${12 * window.devicePixelRatio}px '__Inter_aaf875'`;
         context!.textAlign = "center";
         context!.globalAlpha = particle.opacity;
         context!.fillStyle = "white";
-        context!.fillText(
-          particle.label,
-          particle.xOffset,
-          particle.yOffset
-        );
-        context!.globalAlpha = 1; // Reset global alpha
+        context!.fillText(particle.label, particle.xOffset, particle.yOffset);
 
         // Draw lines between close particles
         for (let j = index + 1; j < particlesRef.current.length; j++) {
@@ -183,6 +200,7 @@ export default function ParticleCanvas() {
             particle.y - otherParticle.y
           );
           if (distance < 1000) {
+            context!.globalAlpha = .2; // Reset global alpha
             context!.beginPath();
             context!.moveTo(particle.x, particle.y);
             context!.lineTo(otherParticle.x, otherParticle.y);
