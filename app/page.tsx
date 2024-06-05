@@ -50,7 +50,7 @@ export default function Home() {
                   <div className="tile">
                     <a className="contact" href="mailto:dibenedittod@gmail.com">
                       <FontAwesomeIcon icon={faEnvelope} />
-                      <div className="contact-title">Email</div>
+                      <div className="contact-title">email</div>
                     </a>
                   </div>
 
@@ -61,14 +61,14 @@ export default function Home() {
                       className="github"
                     >
                       <FontAwesomeIcon icon={faGithub} />
-                      <div>GitHub</div>
+                      <div>github</div>
                     </a>
                   </div>
 
                   <div className="tile">
                     <a href="" target="_blank" className="twitter">
                       <FontAwesomeIcon icon={faXTwitter} />
-                      <div>Twitter</div>
+                      <div>twitter</div>
                     </a>
                   </div>
                 </div>

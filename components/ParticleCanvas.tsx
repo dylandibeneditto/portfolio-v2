@@ -57,7 +57,7 @@ export default function ParticleCanvas() {
         opacity: 1,
         xOffset: 1,
         yOffset: 1,
-        url: `/skills/${titles[i].toLowerCase()}`,
+        url: `portfolio/skills/${titles[i].toLowerCase()}`,
       });
     }
     particlesRef.current = particlesArray;
