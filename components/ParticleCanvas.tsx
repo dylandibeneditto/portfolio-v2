@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef, MouseEvent } from "react";
+import { useState, useEffect, useRef, MouseEvent } from "react";
+import Link from "next/link";
 
 interface Particle {
   x: number;
@@ -14,13 +15,14 @@ interface Particle {
   opacity: number;
   xOffset: number;
   yOffset: number;
+  url: string;
 }
 
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
-  const anyHoveredRef = useRef<boolean>(false);
+  const [hoverLink, setHoverLink] = useState<string>("");
 
   const initParticles = (canvasWidth: number, canvasHeight: number) => {
     const titles: string[] = [
@@ -56,6 +58,7 @@ export default function ParticleCanvas() {
         opacity: 1,
         xOffset: 1,
         yOffset: 1,
+        url: `/skills/${titles[i].toLowerCase()}`,
       });
     }
     particlesRef.current = particlesArray;
@@ -80,10 +83,10 @@ export default function ParticleCanvas() {
 
     const animate = () => {
       context!.clearRect(0, 0, canvas!.width, canvas!.height);
-      anyHoveredRef.current = false;
+      let anyHovered = false;
       particlesRef.current.forEach((particle, index) => {
         if (particle.hovered) {
-          anyHoveredRef.current = true;
+          anyHovered = true;
         }
 
         if (!particle.hovered) {
@@ -153,7 +156,7 @@ export default function ParticleCanvas() {
         context!.closePath();
 
         const hoverOpacity =
-          particle.hovered || !anyHoveredRef.current ? 1 : 0.2;
+          particle.hovered || !anyHovered ? 1 : 0.2;
         const opacitySpeed = 0.1;
         particle.opacity = particle.opacity || 1;
         particle.opacity += (hoverOpacity - particle.opacity) * opacitySpeed;
@@ -179,9 +182,6 @@ export default function ParticleCanvas() {
         }
         particle.yOffset += (targetY - particle.yOffset) / 2;
 
-        //
-        // TODO: refactor so animation is applied to the relative offset of the particle x, not the absolute position of the label
-        //
         context!.globalAlpha = 1; // Reset global alpha
         context!.font = `${12 * window.devicePixelRatio}px '__Inter_aaf875'`;
         context!.globalAlpha = particle.opacity;
@@ -205,7 +205,9 @@ export default function ParticleCanvas() {
             context!.moveTo(particle.x, particle.y);
             context!.lineTo(otherParticle.x, otherParticle.y);
             context!.lineWidth = window.devicePixelRatio;
-            context!.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 400})`;
+            context!.strokeStyle = `rgba(255, 255, 255, ${
+              1 - distance / 400
+            })`;
             context!.stroke();
             context!.closePath();
           }
@@ -233,6 +235,9 @@ export default function ParticleCanvas() {
     const mouseX = (event.clientX - rect.left) * window.devicePixelRatio;
     const mouseY = (event.clientY - rect.top) * window.devicePixelRatio;
 
+    let particleHovered = false;
+    let newHoverLink = "";
+
     particlesRef.current.forEach((particle, index) => {
       const distance = Math.hypot(particle.x - mouseX, particle.y - mouseY);
       if (distance < particle.size + 5 * window.devicePixelRatio) {
@@ -240,18 +245,32 @@ export default function ParticleCanvas() {
         particlesRef.current.splice(index, 1);
         particlesRef.current.unshift(particle);
         particle.targetSize = particle.originalSize * 1.5;
-        if (canvasRef) {
-          canvasRef.current!.style.cursor = "pointer";
-        }
+        particleHovered = true;
+        newHoverLink = particle.url;
       } else {
-        if (canvasRef) {
-          canvasRef.current!.style.cursor = "default";
-        }
         particle.hovered = false;
         particle.targetSize = particle.originalSize;
       }
     });
+
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = particleHovered ? "pointer" : "default";
+    }
+
+    setHoverLink(newHoverLink);
   };
 
-  return <canvas ref={canvasRef} onMouseMove={handleMouseMove} />;
+  const handleClick = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (hoverLink) {
+      window.open(hoverLink, "_blank");
+    }
+  };
+
+  return (
+    <canvas
+      ref={canvasRef}
+      onMouseMove={handleMouseMove}
+      onClick={handleClick}
+    />
+  );
 }
