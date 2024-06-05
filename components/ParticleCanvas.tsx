@@ -107,7 +107,7 @@ export default function ParticleCanvas() {
               const dx = otherParticle.x - particle.x;
               const dy = otherParticle.y - particle.y;
               const distance = Math.hypot(dx, dy);
-              const repulsionForce = (1 / (distance / 0.5)) * 0.75; // Repulsion force
+              const repulsionForce = (1 / (distance / 0.6)) * 0.75; // Repulsion force
               const angle = Math.atan2(dy, dx);
 
               particle.dx += Math.cos(angle) * (0 - repulsionForce);
