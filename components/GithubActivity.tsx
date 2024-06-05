@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
 import "./GithubActivity.css";
 
+interface GitHubEvent {
+  type: string;
+  repo: {
+    name: string;
+  };
+  created_at: string;
+}
+
 function formatTimeDifference(dateString: string): string {
   const providedDate = new Date(dateString);
   const currentTime = new Date();
-  const timeDifference = Math.abs(
-    currentTime.getTime() - providedDate.getTime()
-  );
+  const timeDifference = Math.abs(currentTime.getTime() - providedDate.getTime());
 
   const seconds = Math.floor(timeDifference / 1000);
   const minutes = Math.floor(seconds / 60);
@@ -25,7 +31,7 @@ function formatTimeDifference(dateString: string): string {
 }
 
 const GitHubActivity = ({ username }: { username: string }) => {
-  const [activity, setActivity] = useState([]);
+  const [activity, setActivity] = useState<GitHubEvent[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +39,10 @@ const GitHubActivity = ({ username }: { username: string }) => {
         const response = await fetch(
           `https://api.github.com/users/${username}/events`
         );
-        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(`Error fetching data: ${response.statusText}`);
+        }
+        const data: GitHubEvent[] = await response.json();
         setActivity(data);
       } catch (error) {
         console.error("Error fetching GitHub activity:", error);
@@ -50,16 +59,19 @@ const GitHubActivity = ({ username }: { username: string }) => {
       ) : (
         <div className="last-push">
           <span className="secondary">Last Seen: </span>
-          {formatTimeDifference(activity[0].created_at)}
-          <div className="event-info">
-            <span>{activity[0].type.slice(0, -5).toLowerCase()}: </span>
-            <a
-              href={`https://github.com/${activity[0].repo.name}`}
-              target="_blank"
-            >
-              {activity[0].repo.name.split("/")[1]}
-            </a>
-          </div>
+          {activity[0] && formatTimeDifference(activity[0].created_at)}
+          {activity[0] && (
+            <div className="event-info">
+              <span>{activity[0].type.replace('Event', '').toLowerCase()}: </span>
+              <a
+                href={`https://github.com/${activity[0].repo.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {activity[0].repo.name.split("/")[1]}
+              </a>
+            </div>
+          )}
         </div>
       )}
     </>
