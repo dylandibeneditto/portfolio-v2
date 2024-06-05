@@ -105,7 +105,7 @@ export default function ParticleCanvas() {
               const dx = otherParticle.x - particle.x;
               const dy = otherParticle.y - particle.y;
               const distance = Math.hypot(dx, dy);
-              const repulsionForce = (1 / (distance / .5)) * 0.75; // Repulsion force
+              const repulsionForce = (1 / (distance / 0.5)) * 0.75; // Repulsion force
               const angle = Math.atan2(dy, dx);
 
               particle.dx += Math.cos(angle) * (0 - repulsionForce);
@@ -145,7 +145,7 @@ export default function ParticleCanvas() {
         }
 
         // Draw particle
-        context!.globalAlpha = .75; // Reset global alpha
+        context!.globalAlpha = 0.75; // Reset global alpha
         context!.beginPath();
         context!.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         context!.fillStyle = "white";
@@ -159,38 +159,38 @@ export default function ParticleCanvas() {
         particle.opacity += (hoverOpacity - particle.opacity) * opacitySpeed;
 
         // Draw label with adjusted opacity
-        let targetX = particle.x;
-        if (particle.x > canvas!.width - 25 * window.devicePixelRatio) {
-          targetX = canvas!.width - particle.size;
-        } else if (particle.x < 25 * window.devicePixelRatio) {
-          targetX = particle.size;
+        let targetX;
+        if (
+          particle.x >
+          canvas!.width - particle.label.length * 7 * window.devicePixelRatio
+        ) {
+          targetX = particle.label.length * (-7 * window.devicePixelRatio);
+        } else {
+          targetX = 10;
         }
+        particle.xOffset += (targetX - particle.xOffset) / 2;
 
         // Calculate target y position
-        let targetY = particle.y;
-        const yOffset =
-          particle.y > canvas!.height - 25 * window.devicePixelRatio ? -1 : 1;
-        const yLabelOffset =
-          (particle.size + 10 * window.devicePixelRatio) * yOffset;
-        targetY += yLabelOffset;
-
-        const xOffsetSpeed = 0.05; // Adjust as needed
-        particle.xOffset = particle.xOffset || particle.x;
-        particle.xOffset += (targetX - particle.xOffset) * xOffsetSpeed;
-
-        const yOffsetSpeed = 0.05; // Adjust as needed
-        particle.yOffset = particle.yOffset || particle.y + yLabelOffset;
-        particle.yOffset += (targetY - particle.yOffset) * yOffsetSpeed;
+        let targetY;
+        if (particle.y < 25 * window.devicePixelRatio) {
+          targetY = 15 * window.devicePixelRatio;
+        } else {
+          targetY = -5 * window.devicePixelRatio;
+        }
+        particle.yOffset += (targetY - particle.yOffset) / 2;
 
         //
         // TODO: refactor so animation is applied to the relative offset of the particle x, not the absolute position of the label
         //
         context!.globalAlpha = 1; // Reset global alpha
         context!.font = `${12 * window.devicePixelRatio}px '__Inter_aaf875'`;
-        context!.textAlign = "center";
         context!.globalAlpha = particle.opacity;
         context!.fillStyle = "white";
-        context!.fillText(particle.label, particle.xOffset, particle.yOffset);
+        context!.fillText(
+          particle.label,
+          particle.x + particle.xOffset,
+          particle.y + particle.yOffset
+        );
 
         // Draw lines between close particles
         for (let j = index + 1; j < particlesRef.current.length; j++) {
@@ -200,7 +200,7 @@ export default function ParticleCanvas() {
             particle.y - otherParticle.y
           );
           if (distance < 1000) {
-            context!.globalAlpha = .2; // Reset global alpha
+            context!.globalAlpha = 0.2; // Reset global alpha
             context!.beginPath();
             context!.moveTo(particle.x, particle.y);
             context!.lineTo(otherParticle.x, otherParticle.y);
@@ -240,7 +240,13 @@ export default function ParticleCanvas() {
         particlesRef.current.splice(index, 1);
         particlesRef.current.unshift(particle);
         particle.targetSize = particle.originalSize * 1.5;
+        if (canvasRef) {
+          canvasRef.current!.style.cursor = "pointer";
+        }
       } else {
+        if (canvasRef) {
+          canvasRef.current!.style.cursor = "default";
+        }
         particle.hovered = false;
         particle.targetSize = particle.originalSize;
       }

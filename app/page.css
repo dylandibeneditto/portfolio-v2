@@ -52,6 +52,7 @@
 .grid-col-2 > .tile {
   display: grid;
   grid-template-rows: auto 1fr;
+  overflow: hidden;
 }
 
 .grid-col-2 > .grid-col-col {
