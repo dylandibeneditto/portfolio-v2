@@ -6,21 +6,23 @@
   --bg: rgb(240, 240, 240);
   --sec: rgb(210, 210, 210);
   --text: rgb(5, 5, 5);
-  --text-sec: rgb(115,115,115);
-  --text-ter: rgb(165,165,165);
+  --text-sec: rgb(115, 115, 115);
+  --text-ter: rgb(165, 165, 165);
   --inner: rgba(40, 40, 40, 0.02);
   --outer: rgba(0, 0, 0, 0.05);
+  --title: rgba(0, 0, 0, 0.05);
   --hover-brightness: 0.9;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: rgb(5, 5, 5);
-    --sec: rgb(20, 20, 20);
+    --bg: rgb(20, 20, 20);
+    --sec: rgb(25, 25, 25);
     --text: rgb(250, 250, 250);
     --text-sec: rgb(140, 140, 140);
     --text-ter: rgb(90, 90, 90);
     --inner: rgba(255, 255, 255, 0.02);
+    --title: rgba(255, 255, 255, 0.02);
     --hover-brightness: 1.1;
   }
 }
