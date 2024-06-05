@@ -33,7 +33,6 @@ export default function ParticleCanvas() {
       "C++",
       "Java",
       "Rust",
-      "C#",
       "Swift",
       "Python",
       "Ruby",
@@ -161,30 +160,30 @@ export default function ParticleCanvas() {
         particle.opacity = particle.opacity || 1;
         particle.opacity += (hoverOpacity - particle.opacity) * opacitySpeed;
 
-        // Draw label with adjusted opacity
+        context!.globalAlpha = 1; // Reset global alpha
+        context!.font = `${12 * window.devicePixelRatio}px Menlo, monospace`;
+        context!.globalAlpha = particle.opacity;
+
         let targetX;
-        if (
-          particle.x >
-          canvas!.width - particle.label.length * 7 * window.devicePixelRatio
-        ) {
-          targetX = particle.label.length * (-7 * window.devicePixelRatio);
+        const textWidth = context!.measureText(particle.label).width;
+        
+        if (particle.x > canvas!.width - textWidth - 5) {
+          targetX = -textWidth - 10;
         } else {
           targetX = 10;
         }
-        particle.xOffset += (targetX - particle.xOffset) / 2;
+        particle.xOffset += (targetX - particle.xOffset) * .1;
+        
 
-        // Calculate target y position
         let targetY;
-        if (particle.y < 25 * window.devicePixelRatio) {
+        if (particle.y < (15 * window.devicePixelRatio) + 17) {
           targetY = 15 * window.devicePixelRatio;
         } else {
           targetY = -5 * window.devicePixelRatio;
         }
-        particle.yOffset += (targetY - particle.yOffset) / 2;
+        particle.yOffset += (targetY - particle.yOffset) * .25;
 
-        context!.globalAlpha = 1; // Reset global alpha
-        context!.font = `${12 * window.devicePixelRatio}px '__Inter_aaf875'`;
-        context!.globalAlpha = particle.opacity;
+        
         context!.fillStyle = "white";
         context!.fillText(
           particle.label,
