@@ -18,6 +18,11 @@ interface Particle {
   url: string;
 }
 
+const prefersDarkColorScheme = () =>
+  window &&
+  window.matchMedia &&
+  window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -150,7 +155,7 @@ export default function ParticleCanvas() {
         context!.globalAlpha = 0.75; // Reset global alpha
         context!.beginPath();
         context!.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        context!.fillStyle = "white";
+        context!.fillStyle = prefersDarkColorScheme()?"white":"black";
         context!.fill();
         context!.closePath();
 
@@ -184,7 +189,7 @@ export default function ParticleCanvas() {
         particle.yOffset += (targetY - particle.yOffset) * .25;
 
         
-        context!.fillStyle = "white";
+        context!.fillStyle = prefersDarkColorScheme()?"white":"black";
         context!.fillText(
           particle.label,
           particle.x + particle.xOffset,
@@ -204,7 +209,7 @@ export default function ParticleCanvas() {
             context!.moveTo(particle.x, particle.y);
             context!.lineTo(otherParticle.x, otherParticle.y);
             context!.lineWidth = window.devicePixelRatio;
-            context!.strokeStyle = `rgba(255, 255, 255, ${
+            context!.strokeStyle = `rgba(${prefersDarkColorScheme()?"255, 255, 255":"0, 0, 0"}, ${
               1 - distance / 400
             })`;
             context!.stroke();
