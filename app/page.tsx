@@ -10,6 +10,7 @@ import Details from "@/components/Details";
 import Clock from "@/components/Clock";
 import BoxTitle from "@/components/BoxTitle";
 import ParticleCanvas from "@/components/ParticleCanvas";
+import AwardsScroll from "@/components/AwardsScroll";
 
 export default function Home() {
   return (
@@ -43,7 +44,8 @@ export default function Home() {
             <div className="grid-col-col">
               <div className="grid-row">
                 <div className="tile">
-                  <BoxTitle title="experience" />
+                  <BoxTitle title="awards" />
+                  <AwardsScroll />
                 </div>
 
                 <div className="grid-rcol">
