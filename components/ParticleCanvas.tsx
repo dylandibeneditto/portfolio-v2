@@ -36,6 +36,7 @@ export default function ParticleCanvas() {
       "CSS",
       "TypeScript",
       "C++",
+      "C",
       "Java",
       "Rust",
       "Swift",
@@ -45,6 +46,8 @@ export default function ParticleCanvas() {
       "React.js",
       "Next.js",
       "GraphQL",
+      "Bash",
+      "Go"
     ];
     const particlesArray: Particle[] = [];
     for (let i = 0; i < titles.length; i++) {
