@@ -1,0 +1,58 @@
+.award-content {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 8px;
+  gap: 4px;
+  position: relative;
+}
+
+.award {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  justify-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.award.active {
+  opacity: 1;
+}
+
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--text);
+  opacity: 0.5;
+  border-radius: 5rem;
+  transition: opacity 1s ease;
+  cursor: pointer;
+}
+
+.scroll-dot.active {
+  opacity: 1;
+  cursor: default;
+}
+
+.award-title {
+  font-weight: 600;
+}
+
+.award-details {
+  font-size: 12px;
+  color: var(--text-sec);
+  font-style: italic;
+}
+
+.award-description {
+  display: inline-flex;
+  font-size: 10px;
+  text-align: center;
+  align-items: center;
+}
+
+.scroll-dots {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  justify-content: center;
+}
