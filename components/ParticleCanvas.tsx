@@ -45,6 +45,7 @@ export default function ParticleCanvas() {
       "Node.js",
       "React.js",
       "Next.js",
+      "Three.js",
       "GraphQL",
       "Bash",
       "Go"
